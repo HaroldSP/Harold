@@ -1,0 +1,11 @@
+#Previously, you need to install a vnc server on your raspberry and sign in in order to acces through cloud connectively.
+
+sudo apt-get update && sudo apt-get upgrade
+sudo apt-get install rpi-update
+sudo rpi-update
+raspivid -t 0 -f -awb greyworld 
+
+# -t stands for timer, 0 means it will not stop untill you press ctrl+C, -awb greyworld gets rid away an annoying pink color scheme
+
+# install мтс viewr on your phone, sign in and connect!
+# if you can not see the video stream on your phone, check the preferences on the server part.
