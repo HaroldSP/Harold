@@ -1,0 +1,31 @@
+needs_to_run = True
+C = print('expensive_function')
+while 1:
+
+    if needs_to_run:
+        C
+        needs_to_run = False
+        
+##############################
+
+print ("Hello, Python!")
+
+def run_once(f):
+    def wrapper(*args, **kwargs):
+        if not wrapper.has_run:
+            wrapper.has_run = True
+            return f(*args, **kwargs)
+    wrapper.has_run = False
+    return wrapper
+
+
+@run_once
+def my_function(a, b):
+    return a+b
+
+i = 0
+
+while i <= 5 :
+    
+    print(my_function(1,2))
+    i = i + 1
