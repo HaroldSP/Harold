@@ -1,5 +1,6 @@
 1. PWM - semihardware: pi-blaster. Modify pi-blaster/pi-blaster.c in order to set up pins needed. 'Make' after that. Other ways didn't work in my case.
 ##### https://howto8165.wordpress.com/2014/09/03/pi-blaster-improved-software-pwm/ 
 ##### http://www.poprobot.ru/home/raspberrypi-pwm
+##### https://habr.com/ru/post/37455/
 2. Keyboard - https://stackoverflow.com/questions/24072790/detect-key-press-in-python
               https://pypi.org/project/keyboard/ #use sudo pip3 instead
