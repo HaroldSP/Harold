@@ -1,0 +1,9 @@
+sudo apt-get update && sudo apt-get upgrade
+roscore
+rospack list-names #shows ros packages installed
+rosinstall_generator cv_camera --deps
+rosrun cv_camera cv_camera_node
+rosdep install cv_camera
+catkin_make
+
+roslaunch rplidar_ros rplidar.launch

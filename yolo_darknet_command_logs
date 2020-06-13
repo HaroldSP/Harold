@@ -1,0 +1,178 @@
+sudo apt-get update && sudo apt-get upgrade
+sudo apt-get install python3-dev
+pip3 install numpy
+pip3 install cython
+pip3 install yolo34py
+python3 setup.py build_ext --inplace
+cd darknet/
+./darknet detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights
+./darknet detect cfg/yolov3-tiny.cfg yolov3-tiny.weights data/dog.jpg
+chmod 777 darknet/
+./darknet detector test cfg/coco.data cfg/yolov3.cfg yolov3.weights data/dog.jpg
+
+ 631  cd ninja
+  632  git checkout release
+  633  ./configure.py --bootstrap
+  634  export NINJA_PATH=$PWD
+
+ 636  cd NNPACK
+  642  mkdir build
+  643  cd build
+  644  cmake -G Ninja ..
+  645  ninja
+
+-----------------
+git clone https://github.com/Maratyszcza/NNPACK.git
+
+In this case, I just had to go to NNPACK/cmake/DownloadPThreadPool.cmake 
+and change the line GIT_TAG master to GIT_TAG 5690b5ceada160444a916d31ef72e381f5e52d67, 
+being the new tag the last commit I was able to get working.
+
+cd NNPACK
+
+mkdir build && cd build
+
+cmake -G Ninja .. -DCMAKE_C_FLAGS=-march=armv6k
+
+ninja
+
+sudo ninja install
+
+test:you should be able to find the folders lib and include if all went well
+
+DOESNT WORK
+-------------------
+
+git clone https://github.com/Maratyszcza/NNPACK.git
+
+In this case, I just had to go to NNPACK/cmake/DownloadPThreadPool.cmake 
+and change the line GIT_TAG master to GIT_TAG 5690b5ceada160444a916d31ef72e381f5e52d67, 
+being the new tag the last commit I was able to get working.
+
+cd NNPACK
+
+mkdir build && cd build
+
+cmake .. -DCMAKE_C_FLAGS=-march=armv6k
+
+make
+
+sudo make install
+
+test:you should be able to find the folders lib and include if all went well
+
+DOESNT WORK
+-----------------------------------
+git clone https://github.com/Maratyszcza/NNPACK.git
+
+cd NNPACK
+
+mkdir build && cd build
+
+cmake -G Ninja .. -DCMAKE_C_FLAGS=-march=armv6k
+
+ninja
+
+sudo ninja install
+
+test:you should be able to find the folders lib and include if all went well
+
+DOESNT WORK
+----------------------------------
+git clone https://github.com/digitalbrain79/NNPACK-darknet.git
+
+cd NNPACK-darknet
+
+mkdir build && cd build
+
+cmake -G Ninja .. -DCMAKE_C_FLAGS=-march=armv6k
+
+ninja
+
+sudo ninja install
+
+test:you should be able to find the folders lib and include if all went well
+
+DOESNT WORK
+-------------------------
+17/05 - sunday
+
+1) 
+
+	git clone https://github.com/shizukachan/NNPACK.git
+	cd NNPACK
+	mkdir build && cd build
+	cmake -G Ninja -DBUILD_SHARED_LIBS=on-DCMAKE_C_FLAGS=-march=armv6k ..
+	ninja
+	sudo ninja install
+	git clone https://github.com/shizukachan/darknet-nnpack.git
+	cd darknet-nnpack
+	make
+--errors---
+BETTER see after!!
+
+PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig
+export PKG_CONFIG_PATH
+I made a file named "opencv.pc" and copied it to "/usr/local/lib/pkgconfig" 
+Then i added these two lines to ".bashrc":
+
+PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig
+export PKG_CONFIG_PATH
+that's it! everything is OK now.
+
+BETTER:
+
+https://prateekvjoshi.com/2013/10/18/package-opencv-not-found-lets-find-it/
+sudo find /  -iname opencv.pc
+export PKG_CONFIG_PATH=/path/to/the/file
+It’s better to add this line to your bashrc file 
+so that you don’t have to do it every single time you reopen your terminal.
+---
+sudo apt-get install pkg-config
+sudo apt-get install libopencv-dev
+------------
+
+
+---end------
+wget https://pjreddie.com/media/files/yolov3-tiny.weights
+./darknet detector test cfg/coco.data cfg/yolov3-tiny.cfg yolov3-tiny.weights data/dog.jpg
+
+----errors on startup-----
+./darknet: error while loading shared libraries: libnnpack.so: 
+cannot open shared object file: No such file or directory
+
+https://github.com/pjreddie/darknet/issues/382
+
+sudo /bin/bash -c 'echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf'
+sudo ldconfig
+
+WORKS!!!!
+./darknet detector demo cfg/coco.data cfg/yolov3-tiny.cfg yolov3-tiny.weights
+
+Results (screenshot of video stream not included):
+FPS:0.5
+Objects:
+
+person: 45%
+-----
+yolo_test.py (former rpi_video.py) 
+
+1) run as python yolo_test.py
+2) error:
+picamera.exc.PiCameraMMALError: Failed to enable connection: Out of resources
+
+	solution:
+sudo apt-get update && sudo apt-get upgrade
+sudo rpi-update
+#reboot
+
+also you can rise up GPU memory to 256 mb
+
+3) error: (if you run as python3 yolo_test.py)
+Error: can only concatenate str (not "bytes") to str
+
+base64.b64encode produces a byte-stream, not a string. So for your concatenation to work, you have to convert it into a string first with str(base64.b64encode(addpermissions.encode('utf_16_le')))
+
+b64cmd = base64.b64encode(cmd.encode('utf_16_le')).decode('utf-8')
+os.system('powershell -enc ' + b64cmd)
+EDIT: Normal string conversion didn't work with os.system, used decode('utf-8') instead
