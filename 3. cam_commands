@@ -1,3 +1,5 @@
+sudo apt update && sudo apt upgrade
+
 raspivid -p 0,0,640,480 -fps 30 -t 0 -awb greyworld
 
 raspivid -fps 30 -t 0 -awb greyworld
